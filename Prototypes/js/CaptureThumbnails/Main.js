@@ -14,12 +14,11 @@ define(['jquery', 'CaptureThumbnails/CaptureThumbs'], function ($, CaptureThumbs
       _self = this;
     }
 
-    main.prototype.run = function () {
+    function _addYoutube() {
       var youtubeUrls = [
         'https://www.youtube.com/watch?v=MdYWTs_Xkyw',
         'https://www.youtube.com/watch?v=Y1XGtkrBCFg',
         'https://m.youtube.com/watch?v=BA8uMXvx528',
-        'https://m.youtube.com/watch?v=GIrp9PnnmHk',
         'http://youtu.be/GIrp9PnnmHk'
       ];
       var capture = CaptureThumbs.create();
@@ -27,12 +26,45 @@ define(['jquery', 'CaptureThumbnails/CaptureThumbs'], function ($, CaptureThumbs
       var i = 0;
       for (i = 0; i < youtubeThumbs.length; i++) {
         $('<img >')
-          .attr('src', youtubeThumbs[i])
+          .attr('id', youtubeThumbs[i].id)
+          .attr('src', youtubeThumbs[i].url.thumb)
           .appendTo('body')
           .load(function (thumb) {
-            Log.info.v1('Imagen loaded Ok : ' + thumb);
+            Log.info.v1('Imagen loaded Ok : ' + thumb.url.thumb);
           }(youtubeThumbs[i]));
+
+        $('#' + youtubeThumbs[i].id).wrap('<a href="' + youtubeThumbs[i].url.original + '">');
       }
+    }
+
+    function _addImgur() {
+      var imgurUrls = [
+        'http://imgur.com/1dnuq0F',
+        'http://imgur.com/gallery/gaojg',
+        'http://imgur.com/gallery/kbHj6ja',
+        'http://i.imgur.com/ky8kufUh.jpg',
+        'http://imgur.com/gallery/jSfP2qz'
+      ];
+
+      var capture = CaptureThumbs.create();
+      var imgurThumbs = capture.imgur(imgurUrls);
+      var i = 0;
+      for (i = 0; i < imgurThumbs.length; i++) {
+        $('<img >')
+          .attr('id', imgurThumbs[i].id)
+          .attr('src', imgurThumbs[i].url.thumb)
+          .appendTo('body')
+          .load(function (thumb) {
+            Log.info.v1('Imagen loaded Ok : ' + thumb.url.thumb);
+          }(imgurThumbs[i]));
+
+        $('#' + imgurThumbs[i].id).wrap('<a href="' + imgurThumbs[i].url.original + '">');
+      }
+    }
+
+    main.prototype.run = function () {
+      _addYoutube();
+      _addImgur();
     };
 
     return main;
