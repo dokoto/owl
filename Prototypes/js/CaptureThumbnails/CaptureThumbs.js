@@ -61,7 +61,7 @@ define(['jquery'], function ($) {
         /youtube\.com.*(\?v=|\/embed\/)(.{11})/
       ];
       var youtubeImgUrl = 'http://img.youtube.com/vi/';
-      var thumbProcess = function(urlBase, id, size) {
+      var thumbProcess = function (urlBase, id, size) {
         return urlBase + id + '/' + size + '.jpg';
       };
       return _processUrls(urls, youtubeRegex, youtubeImgUrl, thumbSize.SMALL, thumbProcess);
@@ -77,16 +77,19 @@ define(['jquery'], function ($) {
         SMALL: 's',
         LARGE: 'l'
       };
-      var imgurRegex = [
-        /([^\/]+)(?=\.\w+$)/,
-        /([^\/]+)$/        
-      ];
-      var imgurImgUrl = 'http://i.imgur.com/';
-      var thumbProcess = function(urlBase, id, size) {
-        return urlBase + id + size + '.jpg';
-      };
-      return _processUrls(urls, imgurRegex, imgurImgUrl, thumbSize.SMALL, thumbProcess);
 
+      var defer = $.Deferred();
+      require(['CaptureThumbnails/imagur'], function (ImagurModule) {
+        $.when(ImagurModule.create().run(urls))
+          .done(function (urlsIm) {
+            defer.resolve(urlsIm);
+          })
+          .fail(function (jqXHR, status, error) {
+            defer.reject(error);
+          });
+      });
+
+      return defer;
     };
 
     return capture;

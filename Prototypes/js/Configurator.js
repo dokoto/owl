@@ -43,6 +43,7 @@ require(['Proxy', 'Helpers/Logger'], function (Proxy, Logger) {
     'use strict';
     
     window.Log = Logger.create(Logger.priority.DEBUG);
+    $('#loading-status').empty();
     Log.info.v0('OWL START');
     var proxy = Proxy.create();
     proxy.run();
