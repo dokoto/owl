@@ -22,7 +22,7 @@ rest.get('/', function (request, response) {
 
 
 
-var server = rest.listen(6969, function () {
+var server = rest.listen(46969, function () {
 
   var host = server.address().address;
   var port = server.address().port;
