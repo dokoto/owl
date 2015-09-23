@@ -1,4 +1,4 @@
-define(['jquery', 'CaptureThumbnails/CaptureThumbs'], function ($, CaptureThumbs) {
+define(['jquery', 'gifffer', 'CaptureThumbnails/CaptureThumbs'], function ($, gifff, CaptureThumbs) {
   'use strict';
 
   //*****************************************************
@@ -12,6 +12,7 @@ define(['jquery', 'CaptureThumbnails/CaptureThumbs'], function ($, CaptureThumbs
   var Main = (function () {
     function main() {
       _self = this;
+      gifff.Gifffer();
     }
 
     function _addYoutube() {
@@ -24,9 +25,9 @@ define(['jquery', 'CaptureThumbnails/CaptureThumbs'], function ($, CaptureThumbs
       var capture = CaptureThumbs.create();
       var youtubeThumbs = capture.youtube(youtubeUrls);
       var i = 0;
-      
+
       for (i = 0; i < youtubeThumbs.length; i++) {
-        $('<img >')
+        $('<img>')
           .attr('id', youtubeThumbs[i].id)
           .attr('src', youtubeThumbs[i].url.thumb)
           .appendTo('#pictureGrid')
@@ -35,9 +36,9 @@ define(['jquery', 'CaptureThumbnails/CaptureThumbs'], function ($, CaptureThumbs
           }(youtubeThumbs[i]));
 
         $('#' + youtubeThumbs[i].id)
-        .wrap('<li>')
-        .wrap('<a href="' + youtubeThumbs[i].url.original + '">');
-        
+          .wrap('<li>')
+          .wrap('<a href="' + youtubeThumbs[i].url.original + '">');
+
       }
     }
 
@@ -55,7 +56,7 @@ define(['jquery', 'CaptureThumbnails/CaptureThumbs'], function ($, CaptureThumbs
 
           var i = 0;
           for (i = 0; i < imgurThumbs.length; i++) {
-            $('<img >')
+            $('<img>')
               .attr('id', imgurThumbs[i].id)
               .attr('src', imgurThumbs[i].url.thumb)
               .appendTo('#pictureGrid')
@@ -64,8 +65,8 @@ define(['jquery', 'CaptureThumbnails/CaptureThumbs'], function ($, CaptureThumbs
               }(imgurThumbs[i]));
 
             $('#' + imgurThumbs[i].id)
-            .wrap('<li>')
-            .wrap('<a href="' + imgurThumbs[i].url.original + '">');
+              .wrap('<li>')
+              .wrap('<a href="' + imgurThumbs[i].url.original + '">');
           }
 
         })
@@ -74,16 +75,35 @@ define(['jquery', 'CaptureThumbnails/CaptureThumbs'], function ($, CaptureThumbs
         });
     }
 
+    function _gif() {
+      var gifs = [
+        "http://2.bp.blogspot.com/-VXyUUa4Z3tU/TyCBtfQm-JI/AAAAAAAAAB8/ovxPLXMMAKw/s1600/simpson-gif-animate-03-homer-1.gif"
+      ];
+
+      $('<img>')
+        .attr('id', '1-1')
+        .attr('src', gifs[0])
+        .appendTo('#pictureGrid')
+        .load(function (thumb) {
+          Log.info.v1('Imagen loaded Ok : ' + thumb);
+        }(gifs[0]));
+
+      $('#' + '1-1')
+        .wrap('<li>')
+        .wrap('<a href="' + gifs[0] + '">');
+    }
+
     function _createStructure() {
       $('<ul>')
-      .attr('id', 'pictureGrid')
-      .appendTo('#container-region')
+        .attr('id', 'pictureGrid')
+        .appendTo('#container-region')
     }
 
     main.prototype.run = function () {
       _createStructure();
       _addYoutube();
       _addImgur();
+      _gif();
     };
 
     return main;

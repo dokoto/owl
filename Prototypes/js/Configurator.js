@@ -2,7 +2,8 @@ requirejs.config({
     paths: {
         domReady: 'libs/vendor/domReady',        
         Phaser: 'libs/vendor/phaser.min',
-        jquery: 'libs/vendor/jquery-2.1.4.min'       
+        jquery: 'libs/vendor/jquery-2.1.4.min',
+        gifffer: 'libs/vendor/gifffer'       
     }
 });
 

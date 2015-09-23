@@ -1,15 +1,32 @@
 var express = require('express');
+var bodyParser = require('body-parser');
+var logger = require('morgan');
+var cookieParser = require('cookie-parser');
 
-var server = express.createServer();
-server.configure(function(){
- server.use(express.bodyParser());
- server.use(express.methodOverride());
- server.user(app.router());
- server.user(express.errorHandler({dumpExceptions: true, showStack: true}));
+var images = require('./routes/images');
+
+
+
+var rest = express();
+rest.use(logger('dev'));
+rest.use(bodyParser.json());
+rest.use(bodyParser.urlencoded({
+  extended: false
+}));
+rest.use(cookieParser());
+
+rest.use('/', images);
+rest.get('/', function (request, response) {
+  response.send("Hi, I'm RESTFull services for OWL App in Root");
 });
 
-server.get('/api', function(request, response) {
- response.send("Hi, I'm RESTFull services for OWL App");
-});
 
-server.listen(6969);
+
+var server = rest.listen(6969, function () {
+
+  var host = server.address().address;
+  var port = server.address().port;
+
+  console.log('RESTFUl OWL listening at http://%s:%s', host, port);
+
+})
