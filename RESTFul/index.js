@@ -8,6 +8,7 @@ var images = require('./routes/images');
 
 
 var rest = express();
+rest.use(bodyParser.urlencoded({ extended: true }));
 rest.use(logger('dev'));
 rest.use(bodyParser.json());
 rest.use(bodyParser.urlencoded({
