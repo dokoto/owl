@@ -27,6 +27,7 @@ rest.get('/', function (request, response) {
 
 var httpsOptions = {
   /*
+   * ALERTA !!! HAY QUE REGENERAR LAS KEYS
    * - openssl req -x509 -newkey rsa:2048 -keyout key.pem -out cert.pem -days 365
    * - openssl rsa -in key.pem -out newkey.pem && mv newkey.pem key.pem
    */
@@ -39,16 +40,6 @@ https.createServer(httpsOptions, rest).listen(46969, function () {
   var host = this.address().address;
   var port = this.address().port;
 
-  console.log('RESTFUl OWL listening at http://%s:%s', host, port);
+  console.log('RESTFul OWL services listening all connection from http://%s:%s', host, port);
 
 });
-
-/*
-var server = rest.listen(46969, function () {
-
-  var host = server.address().address;
-  var port = server.address().port;
-
-  console.log('RESTFUl OWL listening at http://%s:%s', host, port);
-
-})*/
