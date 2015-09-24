@@ -2,13 +2,16 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
-
+var https = require('https');
+var fs = require('fs');
 var images = require('./routes/images');
 
 
 
 var rest = express();
-rest.use(bodyParser.urlencoded({ extended: true }));
+rest.use(bodyParser.urlencoded({
+  extended: true
+}));
 rest.use(logger('dev'));
 rest.use(bodyParser.json());
 rest.use(bodyParser.urlencoded({
@@ -22,7 +25,25 @@ rest.get('/', function (request, response) {
 });
 
 
+var httpsOptions = {
+  /*
+   * - openssl req -x509 -newkey rsa:2048 -keyout key.pem -out cert.pem -days 365
+   * - openssl rsa -in key.pem -out newkey.pem && mv newkey.pem key.pem
+   */
+  key: fs.readFileSync('./certs/key.pem'),
+  cert: fs.readFileSync('./certs/cert.pem')
+};
 
+https.createServer(httpsOptions, rest).listen(46969, function () {
+
+  var host = this.address().address;
+  var port = this.address().port;
+
+  console.log('RESTFUl OWL listening at http://%s:%s', host, port);
+
+});
+
+/*
 var server = rest.listen(46969, function () {
 
   var host = server.address().address;
@@ -30,4 +51,4 @@ var server = rest.listen(46969, function () {
 
   console.log('RESTFUl OWL listening at http://%s:%s', host, port);
 
-})
+})*/
