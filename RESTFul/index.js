@@ -40,6 +40,6 @@ https.createServer(httpsOptions, rest).listen(46969, function () {
   var host = this.address().address;
   var port = this.address().port;
 
-  console.log('RESTFul OWL services listening all connection from http://%s:%s', host, port);
+  console.log('RESTFul OWL services listening all connection from https://%s:%s', host, port);
 
 });
