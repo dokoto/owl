@@ -7,16 +7,28 @@ var express = require('express'),
   cookieParser = require('cookie-parser'),
   methodOverride = require('method-override'),
   GitHubStrategy = require('passport-github').Strategy,
-  cookieParser = require('cookie-parser');
+  cookieParser = require('cookie-parser'),
+  https = require('https'),
+  fs = require('fs');
 
 var connection = {
-	GITHUB_CLIENT_ID: "ec052859ef86d94ac7f5",
-    GITHUB_CLIENT_SECRET: "a3ef2f6cde6dd1bdc4310795583b3d9a62df48ad",
-	ip: '46.105.122.140',
-	port: 46969,
-	url: function() {
-		return 'https://' + this.ip + ':' + this.port;
-	}
+  GITHUB_CLIENT_ID: "ec052859ef86d94ac7f5",
+  GITHUB_CLIENT_SECRET: "a3ef2f6cde6dd1bdc4310795583b3d9a62df48ad",
+  ip: '46.105.122.140',
+  port: 46969,
+  url: function () {
+    return 'https://' + this.ip + ':' + this.port;
+  }
+};
+
+var httpsOptions = {
+  /*
+   * ALERTA !!! HAY QUE REGENERAR LAS KEYS
+   * - openssl req -x509 -newkey rsa:2048 -keyout key.pem -out cert.pem -days 365
+   * - openssl rsa -in key.pem -out newkey.pem && mv newkey.pem key.pem
+   */
+  key: fs.readFileSync('./certs/key.pem'),
+  cert: fs.readFileSync('./certs/cert.pem')
 };
 
 
@@ -122,12 +134,13 @@ rest.get('/logout', function (req, res) {
   res.redirect('/');
 });
 
-rest.listen(connection.port, function () {
+
+https.createServer(httpsOptions, rest).listen(connection.port, function () {
 
   var host = this.address().address;
   var port = this.address().port;
 
-  console.log('RESTFul OWL services listening all connection from http://%s:%s', host, port);
+  console.log('RESTFul OWL services listening all connection from https://%s:%s', host, port);
 
 });
 
