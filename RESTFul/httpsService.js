@@ -7,6 +7,13 @@ var fs = require('fs');
 var images = require('./routes/images');
 
 
+var connection = {
+	ip: '46.105.122.140',
+	port: 46969,
+	url: function() {
+		return 'https://' + this.ip + ':' + this.port;
+	}
+};
 
 var rest = express();
 rest.use(bodyParser.urlencoded({
@@ -35,7 +42,7 @@ var httpsOptions = {
   cert: fs.readFileSync('./certs/cert.pem')
 };
 
-https.createServer(httpsOptions, rest).listen(46969, function () {
+https.createServer(httpsOptions, rest).listen(connection.port, function () {
 
   var host = this.address().address;
   var port = this.address().port;
