@@ -103,6 +103,7 @@ rest.get('/account', ensureAuthenticated, function (req, res) {
 
 rest.get('/login', function (req, res) {
   console.log('IN: /login');
+  console.log('USER: ' + req.user);
   res.send('<a href="/auth/github">Login with GitHub</a>');
 });
 
