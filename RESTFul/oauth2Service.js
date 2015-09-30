@@ -7,6 +7,7 @@ var express = require('express'),
   methodOverride = require('method-override'),
   GitHubStrategy = require('passport-github').Strategy,
   https = require('https'),
+  mongoDBStore = require('connect-mongodb-session')(session),
   fs = require('fs');
 
 var connection = {
@@ -32,6 +33,15 @@ var httpsOptions = {
   cert: fs.readFileSync('./certs/cert.pem')
 };
 
+var store = new mongoDBStore( { 
+	uri: 'mongodb://localhost:27017/connect_mongodb_session_owl', 
+	collection: 'owlSessions' 
+});
+
+store.on('error', function(error) {       
+	assert.ifError(error);       
+	assert.ok(false);     
+});
 
 // Passport session setup.
 //   To support persistent login sessions, Passport needs to be able to
@@ -83,8 +93,10 @@ rest.use(session({
   resave: false,
   saveUninitialized: true,
   cookie: {
-    secure: true
-  }
+    secure: true,
+    maxAge: 1000 * 60 * 60 * 24 * 7
+  },
+  store: store
 }));
 rest.use(passport.initialize());
 rest.use(passport.session());
