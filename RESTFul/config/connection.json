@@ -1,0 +1,23 @@
+{
+  "github.clientID": {
+    "value": "ec052859ef86d94ac7f5"
+  },
+  "github.clientSecret": {
+    "value": "a3ef2f6cde6dd1bdc4310795583b3d9a62df48ad"
+  },
+  "github.callback": {
+    "value": "/oauthcallback"
+  },
+  "service.ip": {
+    "value": "46.105.122.140"
+  },
+  "service.port": {
+    "value": 46969
+  },
+  "service.url": {
+    "value": {
+      "nodeLibs": [],
+      "code": "return 'https://' + this.ip + ':' + this.port;"
+    }
+  }
+}
