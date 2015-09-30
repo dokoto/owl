@@ -12,8 +12,11 @@ var express = require('express'),
   fs = require('fs');
 
 var connection = {
-  GITHUB_CLIENT_ID: "ec052859ef86d94ac7f5",
-  GITHUB_CLIENT_SECRET: "a3ef2f6cde6dd1bdc4310795583b3d9a62df48ad",
+  git : {
+    GITHUB_CLIENT_ID: "ec052859ef86d94ac7f5",
+    GITHUB_CLIENT_SECRET: "a3ef2f6cde6dd1bdc4310795583b3d9a62df48ad",
+    callback: '/oauthcallback',
+  },
   ip: '46.105.122.140',
   port: 46969,
   url: function () {
@@ -52,9 +55,9 @@ passport.deserializeUser(function (obj, done) {
 //   credentials (in this case, an accessToken, refreshToken, and GitHub
 //   profile), and invoke a callback with a user object.
 passport.use(new GitHubStrategy({
-    clientID: connection.GITHUB_CLIENT_ID,
-    clientSecret: connection.GITHUB_CLIENT_SECRET,
-    callbackURL: connection.url() + "/auth/github/callback"
+    clientID: connection.git.GITHUB_CLIENT_ID,
+    clientSecret: connection.git.GITHUB_CLIENT_SECRET,
+    callbackURL: connection.url() + connection.git.callback
   },
   function (accessToken, refreshToken, profile, done) {
     // asynchronous verification, for effect...
@@ -121,7 +124,7 @@ rest.get('/auth/github',
 //   request.  If authentication fails, the user will be redirected back to the
 //   login page.  Otherwise, the primary route function function will be called,
 //   which, in this example, will redirect the user to the home page.
-rest.get('/auth/github/callback',
+rest.get(connection.git.callback,
   passport.authenticate('github', {
     failureRedirect: '/login'
   }),
