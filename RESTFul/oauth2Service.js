@@ -4,10 +4,8 @@ var express = require('express'),
   logger = require('morgan'),
   session = require('express-session'),
   bodyParser = require('body-parser'),
-  cookieParser = require('cookie-parser'),
   methodOverride = require('method-override'),
   GitHubStrategy = require('passport-github').Strategy,
-  cookieParser = require('cookie-parser'),
   https = require('https'),
   fs = require('fs');
 
@@ -76,7 +74,6 @@ passport.use(new GitHubStrategy({
 var rest = express();
 
 rest.use(logger('dev'));
-rest.use(cookieParser());
 rest.use(bodyParser.urlencoded({
   extended: true
 }));
@@ -95,15 +92,17 @@ rest.use(express.static(__dirname + '/public'));
 
 
 rest.get('/', function (req, res) {
-  console.log('/ ' + req.user);
+  console.log('IN : /');
+  res.send('<h1>HOME PAGE</h1>');
 });
 
 rest.get('/account', ensureAuthenticated, function (req, res) {
-  console.log('/account ' + req.user);
+  console.log('IN: /account');
+  res.send('<h1>ACCOUNT PAGE</h1>');
 });
 
 rest.get('/login', function (req, res) {
-  console.log('/login' + req.user);
+  console.log('IN: /login');
   res.send('<a href="/auth/github">Login with GitHub</a>');
 });
 
@@ -129,6 +128,7 @@ rest.get(connection.git.callback,
     failureRedirect: '/login'
   }),
   function (req, res) {
+    console.log('Github callback ejecutado..');
     res.redirect('/');
   });
 
@@ -155,7 +155,9 @@ https.createServer(httpsOptions, rest).listen(connection.port, function () {
 //   login page.
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
+    console.log('Usuario autenticado');
     return next();
   }
+  console.log('Usuario NO autenticado');
   res.redirect('/login')
 }
