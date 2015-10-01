@@ -3,16 +3,18 @@
 var express = require('express');
 var router = express.Router();
 var passport = require('passport');
+var response = require('../../../utils/response');
 
 router.get('/', function (req, res) {
   console.log('IN : /');
-  res.send('<h1>HOME PAGE</h1>');
+  response.standard(res, 200, 'NOTHING TO SAID');
 });
 
 router.get('/login', function (req, res) {
   console.log('IN: /login');
-  console.log('USER: ' + req.user);
-  res.send('<a href="/auth/github">Login with GitHub</a>');
+  console.log('Redirectting to /auth/github');
+  res.redirect('/auth/github"');
+  //res.send('<a href="/auth/github">Login with GitHub</a>');
 });
 
 // GET /auth/github
@@ -38,12 +40,12 @@ router.get(Config.fetch('connection', 'github.callback'),
   }),
   function (req, res) {
     console.log('Github callback ejecutado..');
-    res.redirect('/');
+    response.standard(res, 200, 'LOGIN OK');
   });
 
 router.get('/logout', function (req, res) {
   req.logout();
-  res.redirect('/');
+  response.standard(res, 200, 'LOGOUT OK');
 });
 
 
