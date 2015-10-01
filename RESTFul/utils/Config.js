@@ -15,12 +15,10 @@ var Config = (function () {
         throw 'funcNode is undefined';
       }
 
-      if (typeof funcNode === 'string') {
-        return funcNode;
-      } else if (typeof funcNode === 'object') {
+      if (typeof funcNode === 'object') {
         var dFunc, i;
-        var funcDeps = [grunt, options];
-        var funcDepsTxt = ['grunt', 'options'];
+        var funcDeps = [];
+        var funcDepsTxt = [];
 
         for (i = 0; i < funcNode.nodeLibs.length; i++) {
           funcDeps.push(require(funcNode.nodeLibs[i]));
@@ -30,21 +28,24 @@ var Config = (function () {
         dFunc = Function.apply(null, funcDepsTxt);
 
         return dFunc.apply(null, funcDeps);
+      } else {        
+        return funcNode;
       }
     } catch (error) {
       console.error(error);
     }
   }
 
-  function _loadCollections(collections) {
+  function _loadCollections(collections) {    
     if (Array.isArray(collections) === false) {
       console.error('collections must be an Array');
       return [];
     }
+    var path = require('path');
     var loadedCols = {};
     for(var collection in collections) {
       if(collections.hasOwnProperty(collection)){
-        loadedCols[collection.collectionKey] = require(collection.pathConfigFile);
+        loadedCols[collections[collection].collectionKey] = require(path.join(Base, collections[collection].pathConfigFile) );
       }
     }
 
@@ -52,7 +53,7 @@ var Config = (function () {
   }
 
   function _getValue(collection, key) {
-    return loadedCols[collection][key];
+    return _self.collections[collection][key].value;
   }
 
   //*****************************************************
@@ -66,7 +67,7 @@ var Config = (function () {
     this.collections = _loadCollections(collections);
   }
 
-  config.prototype.fetch: function (collection, key) {
+  config.prototype.fetch = function (collection, key) {
     return _resolveComplexVal(_getValue(collection, key));
   };
 

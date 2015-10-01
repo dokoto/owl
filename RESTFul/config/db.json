@@ -1,0 +1,8 @@
+{
+  "db.mongo.session.uri": {
+    "value": "mongodb://localhost:27017/connect_mongodb_session_owl"
+  },
+  "db.mongo.session.collection": {
+    "value": "owlSessions"
+  }
+}

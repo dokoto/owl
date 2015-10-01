@@ -1,0 +1,8 @@
+{
+  "https.pathToKey": {
+    "value": "certs/key.pem"
+  },
+  "https.pathToCert": {
+    "value": "certs/cert.pem"
+  }
+}
