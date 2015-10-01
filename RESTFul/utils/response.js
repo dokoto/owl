@@ -17,7 +17,7 @@ var Response = (function () {
     _self = this;
   }
 
-  test.prototype.standard = function (res, status, message) {
+  response.prototype.standard = function (res, status, message) {
     var _ = require('underscore');
     var path = require('path');
     var compiled = _.template( path.join(Base, '/templates/response.json'));
