@@ -17,7 +17,7 @@
   "service.url": {
     "value": {
       "nodeLibs": [],
-      "code": "return 'https://' + this.ip + ':' + this.port;"
+      "code": "return 'https://' + this.connection['service.ip'].value + ':' + this.connection['service.port'].value;"
     }
   }
 }

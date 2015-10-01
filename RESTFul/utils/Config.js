@@ -6,7 +6,7 @@ var Config = (function () {
   // PRIVATE
   //*****************************************************
   var _self = null;
-
+  var _collections = null;
   
   function _resolveComplexVal (funcNode) {
     try {
@@ -27,7 +27,7 @@ var Config = (function () {
         funcDepsTxt.push(funcNode.code);
         dFunc = Function.apply(null, funcDepsTxt);
 
-        return dFunc.apply(null, funcDeps);
+        return dFunc.apply(_collections, funcDeps);
       } else {        
         return funcNode;
       }
@@ -53,7 +53,7 @@ var Config = (function () {
   }
 
   function _getValue(collection, key) {
-    return _self.collections[collection][key].value;
+    return _collections[collection][key].value;
   }
 
   //*****************************************************
@@ -64,7 +64,7 @@ var Config = (function () {
    */
   function config(collections) {
     _self = this;
-    this.collections = _loadCollections(collections);
+    _collections = _loadCollections(collections);
   }
 
   config.prototype.fetch = function (collection, key) {
