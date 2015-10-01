@@ -3,7 +3,7 @@
 var express = require('express');
 var router = express.Router();
 var passport = require('passport');
-var response = require('../../../utils/response');
+var response = require('../../../utils/response').create();
 
 router.get('/', function (req, res) {
   console.log('IN : /');
