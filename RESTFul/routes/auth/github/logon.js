@@ -13,7 +13,7 @@ router.get('/', function (req, res) {
 router.get('/login', function (req, res) {
   console.log('IN: /login');
   console.log('Redirectting to /auth/github');
-  res.redirect('/auth/github"');
+  res.redirect('/auth/github');
   //res.send('<a href="/auth/github">Login with GitHub</a>');
 });
 
