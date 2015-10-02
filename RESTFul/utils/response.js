@@ -20,7 +20,8 @@ var Response = (function () {
   response.prototype.standard = function (res, status, message) {
     var _ = require('underscore');
     var path = require('path');
-    var compiled = _.template( path.join(Base, '/templates/response.json'));
+    var tpl = require(path.join(Base, '/templates/response.json'));
+    var compiled = _.template( JSON.stringify(tpl) );
 
     res.status(status).json(compiled({
       status: status,
