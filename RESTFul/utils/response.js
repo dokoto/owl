@@ -21,7 +21,7 @@ var Response = (function () {
     var _ = require('underscore');
     var path = require('path');
     var tpl = require(path.join(Base, '/templates/response.json'));
-    var compiled = _.template( JSON.stringify(tpl) );
+    var compiled = _.template( JSON.stringify(tpl) );    
 
     res.status(status).json(compiled({
       status: status,
