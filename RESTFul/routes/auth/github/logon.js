@@ -40,7 +40,7 @@ router.get('/auth/github',
 //   which, in this example, will redirect the user to the home page.
 router.get(Config.fetch('connection', 'github.callback'),
   passport.authenticate('github', {
-    failureRedirect: '/login'
+    failureRedirect: '/noauth'
   }),
   function (req, res) {
     console.log('Github callback ejecutado..');
