@@ -10,11 +10,13 @@ router.get('/', function (req, res) {
   response.standard(res, 200, 'NOTHING TO SAID');
 });
 
+/*
 router.get('/login', function (req, res) {
   console.log('IN: /login');
   console.log('Redirectting to /auth/github');
   res.redirect('/auth/github');
 });
+*/
 
 router.get('/noauth', function (req, res) {
   console.log('IN : /noauth');
@@ -26,7 +28,8 @@ router.get('/noauth', function (req, res) {
 //   request.  The first step in GitHub authentication will involve redirecting
 //   the user to github.com.  After authorization, GitHubwill redirect the user
 //   back to this application at /auth/github/callback
-router.get('/auth/github',
+//router.get('/auth/github',
+router.get('/login',  
   passport.authenticate('github'),
   function (req, res) {
     // The request will be redirected to GitHub for authentication, so this
