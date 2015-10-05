@@ -1,0 +1,9 @@
+COMO DEPURAR LOS REST EN REMOTO
+-------------------------------------
+- Activa el proxy y la vpn
+- Desde la maquina remota (PROXY) ejecutar :
+  $> node-debug --web-port 36969 --web-host 10.8.0.1 start.js
+- Desde el browser ejecutar :
+  > http://10.8.0.1:36969
+
+  

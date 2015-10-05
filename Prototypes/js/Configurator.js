@@ -2,7 +2,8 @@ requirejs.config({
   paths: {
     domReady: 'libs/vendor/domReady',
     jquery: 'libs/vendor/jquery-2.1.4.min',
-    masonry: 'libs/vendor/masonry.pkgd.min'
+    masonry: 'libs/vendor/masonry.pkgd.min',
+    imagesLoaded: 'libs/vendor/imagesloaded.pkgd'
   },
   shim: {
     "masonry": ["jquery"]

@@ -14,7 +14,11 @@ router.get('/login', function (req, res) {
   console.log('IN: /login');
   console.log('Redirectting to /auth/github');
   res.redirect('/auth/github');
-  //res.send('<a href="/auth/github">Login with GitHub</a>');
+});
+
+router.get('/noauth', function (req, res) {
+  console.log('IN : /noauth');
+  response.standard(res, 401, 'NO AUTH');
 });
 
 // GET /auth/github
