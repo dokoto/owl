@@ -1,8 +1,10 @@
 'use strict';
 
-//var configurator = require('./configurator').create();
+var configurator = require('./configurator').create();
 //var response = require('./utils/response').create();
-var HTMLRender = require('./utils/HTMLRender').create();
+var utilsImg = require('./utils/images').create();
 
-HTMLRender.shot('https://www.npmjs.com/', 'npm.jpg');
 
+utilsImg.doThumbAsync('http://startrekofgodsandmen.com/main/index.php?option=com_content&view=article&id=104&Itemid=168').then(function (res) {
+  console.log(JSON.stringify(res));
+});

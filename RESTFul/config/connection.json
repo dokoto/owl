@@ -19,5 +19,11 @@
       "nodeLibs": [],
       "code": "return 'https://' + this.connection['service.ip'].value + ':' + this.connection['service.port'].value;"
     }
+  },
+  "service.files.url": {
+    "value": {
+      "nodeLibs": [],
+      "code": "return 'http://' + this.connection['service.ip'].value + '/public/files/png/';"
+    }
   }
 }

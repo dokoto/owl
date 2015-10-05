@@ -1,0 +1,6 @@
+{
+	"image" : {
+		"capture": "phantomjs <%=basePath%>/utils/rasterize.js \"<%=url%>\" public/files/png/<%=fileName%> \"1024px*768px\"",
+		"convert": "convert <%=basePath%>/public/files/png/<%=fileNameIn%> -resize <%=resizePorc%> public/files/png/<%=fileNameOut%>"
+	}
+}

@@ -17,9 +17,10 @@ define(['jquery'], function ($) {
     proxy.prototype.run = function () {
       Log.info.v1('Mapping Prototypes');
       var protoNames = {
-        captureThumbs: 'CaptureThumbnails/Main'
+        captureThumbs: 'CaptureThumbnails/Main',
+        grid: 'Structure/grid'
       }      
-      require([protoNames.captureThumbs], function (Proto) {
+      require([protoNames.grid], function (Proto) {
         var proto = Proto.create();
         proto.run();    
       });
