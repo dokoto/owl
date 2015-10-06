@@ -20,7 +20,7 @@ define(['jquery'], function ($) {
         captureThumbs: 'CaptureThumbnails/Main',
         grid: 'Structure/grid'
       }      
-      require([protoNames.grid], function (Proto) {
+      require([protoNames.captureThumbs], function (Proto) {
         var proto = Proto.create();
         proto.run();    
       });

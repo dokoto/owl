@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Flex layouts demo with freewall</title>
+		<meta content="text/html; charset=utf-8" http-equiv="content-type">
+		<meta name="description" content="Freewall demo for flex layout" />
+		<meta name="keywords" content="javascript, dynamic, grid, layout, jquery plugin, flex layouts"/>
+		<link rel="icon" href="favicon.ico" type="image/x-icon" />
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<script type="text/javascript" src="jquery-2.1.4.min.js"></script>
+		<script type="text/javascript" src="freewall.js"></script>
+		<style type="text/css">
+			.free-wall {
+				margin: 15px;
+			}
+			.brick img {
+				margin: 0;
+				display: block;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="freewall" class="free-wall"></div>
+		
+		<script type="text/javascript">
+			var images = ["http://46.105.122.140/public/files/png/FPH6eJrLZq72sO0Xq5ZgMOdCkQIV9ik7.png",
+						"http://46.105.122.140/public/files/png/ouQcdh8GGfnynvYImGmKjRlWs6X7zF2V.png",
+						"http://img.youtube.com/vi/ZAwIsKC7ROQ/3.jpg",
+						"http://i.imgur.com/AMqmOs.jpg",
+						"http://46.105.122.140/public/files/png/csTgto3EZXVFDbnfg8YgbGFHT4Tg6T2q.png",
+						"http://46.105.122.140/public/files/png/uj7UFKMtG12aGT83IH7ISQHiF3K5NmXv.png",
+						"http://i.imgur.com/FoqPTlps.jpg"];
+
+			var temp = "<div class='brick' style='width:33%;'><img src='{index}' width='100%'></div>";
+			var w = 1, h = 1, html = '';
+			for (var i = 0; i < images.length; ++i) {
+				html += temp.replace("{index}", images[i]);
+			}
+			$("#freewall").html(html);
+			
+			var wall = new freewall("#freewall");
+			wall.reset({
+				selector: '.brick',
+				animate: true,
+				cellW: 150,
+				cellH: 'auto',
+				onResize: function() {
+					wall.fitWidth();
+				}
+			});
+
+			var images = wall.container.find('.brick');
+			images.find('img').load(function() {
+				wall.fitWidth();
+			});
+
+		</script>
+	</body>
+</html>
+
+v

@@ -10,4 +10,6 @@ cordova plugin add https://github.com/dokoto/cordova-plugin-inappbrowser.git --s
 echo "Eliminando logica por defecto" ;
 rm -rf www/*
 echo "Copiando logica propia" ;
-cp -rfv ../../Prototypes/* www/.
+cp -rfv ../../Prototypes/P03/* www/.
+echo "Copiando assets android"
+cp -rfv ../../Documents/assets/android/res/* platforms/android/res/.

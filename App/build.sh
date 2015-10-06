@@ -2,5 +2,5 @@
 
 cd owl ;
 rm -rfv www/*
-cp -rfv ../../Prototypes/* www/.
+cp -rfv ../../Prototypes/P03/* www/.
 cordova build android ;
