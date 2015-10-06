@@ -1,3 +1,5 @@
+'use strict';
+
 requirejs.config({
   paths: {
     domReady: 'libs/vendor/domReady',
@@ -43,8 +45,6 @@ window.onerror = function (message, file, line, col, error) {
 };
 
 require(['Proxy', 'Helpers/Logger'], function (Proxy, Logger) {
-
-  'use strict';
 
   window.Log = Logger.create(Logger.priority.DEBUG);
   $('#loading-status').empty();

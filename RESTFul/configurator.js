@@ -43,7 +43,7 @@ var Configurator = (function () {
         return next();
       }
       console.log('Usuario NO autenticado');
-      res.redirect('/login')
+      res.redirect('/noauth')
     };
 
   }

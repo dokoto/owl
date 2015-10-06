@@ -1,10 +1,13 @@
 #!/bin/bash
 
-rm -rfv owl ;
+echo "Eliminando viejas construcciones" ;
+rm -rf owl ;
 cordova create owl com.dokoto.owl owl ;
 cd owl ;
 cordova platform add android ;
 cordova plugin add https://github.com/dokoto/cordova-plugin-clipboard.git --save ;
-cordova plugin add cordova-plugin-inappbrowser --save ;
-rm -rfv www/*
+cordova plugin add https://github.com/dokoto/cordova-plugin-inappbrowser.git --save ;
+echo "Eliminando logica por defecto" ;
+rm -rf www/*
+echo "Copiando logica propia" ;
 cp -rfv ../../Prototypes/* www/.
