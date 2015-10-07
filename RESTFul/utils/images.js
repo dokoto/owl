@@ -14,6 +14,7 @@ var Images = (function () {
   var _self = null;
 
   function _all(params) {
+    console.log('Full render url detection : ' + params.url);
     var deferred = Q.defer();
     try {
       var fileName = randomstring.generate() + '.png';
@@ -64,6 +65,7 @@ var Images = (function () {
   }
 
   function _youtube(params) {
+    console.log('Youtube.com url detection : ' + params.url);
     var deferred = Q.defer();
     try {
       var idRegex = params.url.match(params.regex);
@@ -88,6 +90,7 @@ var Images = (function () {
   }
 
   function _imagur(params) {
+    console.log('Imgur.com url detection : ' + params.url);
     var deferred = Q.defer();
     try {
       var rxResult = params.url.match(/([^\/]+)$/);
