@@ -156,6 +156,12 @@ var Images = (function () {
         }
       }],
       services: [{
+        regex: /youtube\.com.*user/,
+        func: _all
+      },{
+        regex: /youtube\.com.*channel/,
+        func: _all
+      },{
         regex: /youtu\.be.*(.{11})/,
         func: _youtube
       }, {
