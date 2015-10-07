@@ -145,12 +145,12 @@ var Images = (function () {
   function _detectProv(url) {
     var test = {
       error: [{
-        message: 'Url must start with protocol "http://" or "https://"'
+        message: 'Url must start with protocol "http://" or "https://"',
         func: function (url) {
           return (url.match(/(http|https):\/\//g) === null)?false:true;
         }
       },{
-        message: 'Double http protocol in URL not alloed'
+        message: 'Double http protocol in URL not alloed',
         func: function (url) {
           return (url.match(/(http|https):\/\//g).length > 1)?false:true;
         }
