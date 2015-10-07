@@ -27,7 +27,6 @@ define(['jquery', 'Helpers/images', 'freewall'], function ($, images) {
 
   function _modifyImage(id, urlRef, urlThumb) {
     console.log('_modifyImage id : ' + id + '  url: ' + urlRef);
-    //$('#' + id).parent().parent().attr('style', 'width:33%')
     $('#' + id).parent().attr('href', urlRef);
     $('#' + id).attr('src', urlThumb);
     _refreshImages();
@@ -43,7 +42,7 @@ define(['jquery', 'Helpers/images', 'freewall'], function ($, images) {
   function _activeCopyListener() {
     clipBoard.setCopyListener(function (data) {
       var _id = Math.round(new Date().getTime() + (Math.random() * 100));      
-      _insertImage(_id, data.item, 'assets/img/ripple.gif');
+      _insertImage(_id, data.item, 'assets/img/squares.gif');
       $.when(_images.doShot(data.item, _id)).then(function (convertion) {
         _modifyImage(convertion.id, data.item, convertion.value);
       }).fail(function (error) {

@@ -99,13 +99,21 @@ var Images = (function () {
         var apiUrl = 'http://imgur.com/gallery/' + id + '.json';
         request(apiUrl, function (error, response, body) {
           if (!error && response.statusCode == 200) {
-            var result = JSON.parse(body);
+            try {
+              var result = JSON.parse(body);              
             deferred.resolve({
               status: 200,
               url: ((result.data.image.is_album === true) ?
                 imgurBaseUrl + result.data.image.album_cover + 's.jpg' : imgurBaseUrl + result.data.image.hash + 's.jpg'),
               message: 'DONE'
             });
+          }catch(error) {
+            deferred.resolve({
+              status: 200,
+              url: imgurBaseUrl + result.data.image.hash + 's.jpg'),
+              message: 'DONE'
+            });
+          }
           }
         });
 
