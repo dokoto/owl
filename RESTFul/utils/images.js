@@ -137,7 +137,7 @@ var Images = (function () {
     var deferred = Q.defer();
     deferred.reject({
       status: 500,
-      message: params.errorMessage
+      message: params.message
     });
     return deferred.promise;
   }
@@ -172,7 +172,7 @@ var Images = (function () {
 
     for (var i = 0; i < test.error.length; i++) {      
         if (test.error[i].func(url) === false) {
-          _error(test.error.message);
+          _error({message: test.error.message});
         }
       
     }
