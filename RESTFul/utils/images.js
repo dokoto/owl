@@ -110,7 +110,7 @@ var Images = (function () {
           }catch(error) {
             deferred.resolve({
               status: 200,
-              url: imgurBaseUrl + result.data.image.hash + 's.jpg'),
+              url: imgurBaseUrl + result.data.image.hash + 's.jpg',
               message: 'DONE'
             });
           }
