@@ -113,7 +113,7 @@ var Configurator = (function () {
     var log4js = require('log4js');
     log4js.configure('./config/log4js.json');
 
-    global.Logger = log4js.getLogger("startup");
+    global.Logger = log4js.getLogger("OWL");
 
   }
 
