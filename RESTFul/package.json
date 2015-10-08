@@ -12,6 +12,7 @@
     "body-parser": "^1.14.0",
     "connect-mongodb-session": "^1.0.5",
     "express": "^4.13.3",
+    "express-cluster": "0.0.4",
     "express-session": "^1.11.3",
     "file-stream-rotator": "0.0.6",
     "method-override": "^2.3.5",

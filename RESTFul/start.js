@@ -1,11 +1,15 @@
 'use strict';
 
+var cluster = require('express-cluster');
 var https = require('https');
 var configurator = require('./configurator').create();
 var restful = configurator.generate();
 var ip = Config.fetch('connection', 'service.ip');
 
-https.createServer(restful.options, restful.app).listen(Config.fetch('connection', 'service.port'), function () {
-  var address = this.address();
-  console.log('RESTFul OWL services listening all connection from https://%s:%s', ip, address.port);
+cluster(function () {
+  https.createServer(restful.options, restful.app).listen(Config.fetch('connection', 'service.port'), function () {
+    var address = this.address();
+    Logger.trace('RESTFul OWL service listening connection at https://%s:%s with pid: ', ip, address.port, process.pid );
+    console.log('RESTFul OWL service listening connection at https://%s:%s with pid: ', ip, address.port, process.pid );
+  });
 });

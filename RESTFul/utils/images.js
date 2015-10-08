@@ -14,7 +14,7 @@ var Images = (function () {
   var _self = null;
 
   function _all(params) {
-    console.log('Full render url detection : ' + params.url);
+    Logger.info('[utils.images] Full render url detection : ' + params.url);
     var deferred = Q.defer();
     try {
       var fileName = randomstring.generate() + '.png';
@@ -43,7 +43,7 @@ var Images = (function () {
 
         if (log.code === 0) {
           var url = Config.fetch('connection', 'service.files.url') + fileName;
-          console.log('Render url Done OK : ' + url);
+          Logger.info('[utils.images] Render url Done OK : ' + url);
           deferred.resolve({
             status: 200,
             url: url,
@@ -57,7 +57,7 @@ var Images = (function () {
       }
 
     } catch (error) {
-      console.error(error.message);
+      Logger.error(error.message);
       deferred.reject({
         status: 500,
         message: error.message
@@ -68,13 +68,13 @@ var Images = (function () {
   }
 
   function _youtube(params) {
-    console.log('Youtube.com url detection : ' + params.url);
+    Logger.info('[utils.images] Youtube.com url detection : ' + params.url);
     var deferred = Q.defer();
     try {
       var idRegex = params.url.match(params.regex);
       if (idRegex !== null) {
         var url = 'http://img.youtube.com/vi/' + idRegex.pop() + '/3.jpg'
-        console.log('Render url Done OK : ' + url);
+        Logger.info('[utils.images] Render url Done OK : ' + url);
         deferred.resolve({
           status: 200,
           url: url,
@@ -84,7 +84,7 @@ var Images = (function () {
         throw new Error('Regex procces for youtube failed');
       }
     } catch (error) {
-      console.error(error.message);
+      Logger.error(error.message);
       deferred.reject({
         status: 500,
         message: error.message
@@ -95,7 +95,7 @@ var Images = (function () {
   }
 
   function _imagur(params) {
-    console.log('Imgur.com url detection : ' + params.url);
+    Logger.info('[utils.images] Imgur.com url detection : ' + params.url);
     var deferred = Q.defer();
     try {
       var rxResult = params.url.match(/([^\/]+)$/);
@@ -111,7 +111,7 @@ var Images = (function () {
               var result = JSON.parse(body);
               var url = (result.data.image.is_album === true) ?
                   imgurBaseUrl + result.data.image.album_cover + 's.jpg' : imgurBaseUrl + result.data.image.hash + 's.jpg';
-              console.log('Render url Done OK : ' + url);
+              Logger.info('[utils.images] Render url Done OK : ' + url);
               deferred.resolve({
                 status: 200,
                 url: url,
@@ -128,14 +128,14 @@ var Images = (function () {
         });
 
       } else {
-        console.error('Regex procces for imagur failed');
+        Logger.error('Regex procces for imagur failed');
         deferred.reject({
           status: 500,
           message: 'Regex process for imagur failed'
         });
       }
     } catch (error) {
-      console.error(error.message);
+      Logger.error(error.message);
       deferred.reject({
         status: 500,
         message: error.message
@@ -146,7 +146,7 @@ var Images = (function () {
   }
 
   function _error(params) {
-    console.error(params.message);
+    Logger.error(params.message);
     var deferred = Q.defer();
     deferred.reject({
       status: 500,
@@ -216,10 +216,10 @@ var Images = (function () {
 
   images.prototype.doThumbAsync = function (url) {
     try {
-      console.log('Processing : ' + url);
+      Logger.info('[utils.images] Processing : ' + url);
       return _detectProv(url);
     } catch(error) {
-      console.error(error.message);
+      Logger.error(error.message);
       return _error({message: error.message});
     } 
   };

@@ -2,13 +2,12 @@
 
 var express = require('express'),
   passport = require('passport'),
-  logger = require('morgan'),
-  fileStreamRotator = require('file-stream-rotator'),
   session = require('express-session'),
   bodyParser = require('body-parser'),
   methodOverride = require('method-override'),
   GitHubStrategy = require('passport-github').Strategy,
   mongoDBStore = require('connect-mongodb-session')(session),
+  log4js = require('log4js'),
   fs = require('fs'),
   path = require('path');
 
@@ -31,9 +30,6 @@ var Configurator = (function () {
     }, {
       collectionKey: 'https',
       pathConfigFile: '/config/https.json'
-    }, {
-      collectionKey: 'log',
-      pathConfigFile: '/config/log.json'
     }]);
 
     // Simple route middleware to ensure user is authenticated.
@@ -43,10 +39,10 @@ var Configurator = (function () {
     //   login page.
     global.ensureAuthenticated = function (req, res, next) {
       if (req.isAuthenticated()) {
-        console.log('Usuario autenticado');
+        Logger.info('Usuario autenticado');
         return next();
       }
-      console.log('Usuario NO autenticado');
+      Logger.info('Usuario NO autenticado');
       res.redirect('/noauth')
     };
 
@@ -113,18 +109,11 @@ var Configurator = (function () {
     ));
   }
 
-  function _Log() {
-    var logDirectory = Config.fetch('log', 'log.folder');
-    var logFileName = Config.fetch('log', 'log.fileName');
+  function _log4js() {
+    var log4js = require('log4js');
+    log4js.configure('./config/log4js.json');
 
-    fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory);
-    var accessLogStream = FileStreamRotator.getStream({
-      filename: logDirectory + logFileName,
-      frequency: Config.fetch('log', 'log.frecuency'),
-      verbose: Config.fetch('log', 'log.verbose')
-    });
-
-    _self.rest.use(logger('dev', {stream: accessLogStream}));
+    global.Logger = log4js.getLogger("startup");
 
   }
 
@@ -174,7 +163,7 @@ var Configurator = (function () {
     _SessionStorage();
     _Passport();
     _Express();
-    _Log();
+    _log4js();
     _Definitions();
 
     return {

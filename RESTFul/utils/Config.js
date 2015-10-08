@@ -44,16 +44,24 @@ var Config = (function () {
     var path = require('path');
     var loadedCols = {};
     for(var collection in collections) {
-      if(collections.hasOwnProperty(collection)){
+      if(collections.hasOwnProperty(collection)) {
+        //console.log('[utils.Conf] Adding Key : "' + collections[collection].collectionKey + '" from : ' + collections[collection].pathConfigFile);
         loadedCols[collections[collection].collectionKey] = require(path.join(Base, collections[collection].pathConfigFile) );
       }
     }
+    //console.log('Collections added: ');
+    //console.log(JSON.stringify(loadedCols));
 
     return loadedCols;
   }
 
   function _getValue(collection, key) {
-    return _collections[collection][key].value;
+    try {
+      return _collections[collection][key].value;
+    } catch(error){
+      console.error('Error trying to fetch collection: ' + collection + '[' + key + ']');
+      console.error(error.message);
+    }
   }
 
   //*****************************************************
