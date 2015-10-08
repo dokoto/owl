@@ -3,6 +3,7 @@
 var express = require('express'),
   passport = require('passport'),
   logger = require('morgan'),
+  fileStreamRotator = require('file-stream-rotator'),
   session = require('express-session'),
   bodyParser = require('body-parser'),
   methodOverride = require('method-override'),
@@ -30,8 +31,11 @@ var Configurator = (function () {
     }, {
       collectionKey: 'https',
       pathConfigFile: '/config/https.json'
+    }, {
+      collectionKey: 'log',
+      pathConfigFile: '/config/log.json'
     }]);
-    
+
     // Simple route middleware to ensure user is authenticated.
     //   Use this route middleware on any resource that needs to be protected.  If
     //   the request is authenticated (typically via a persistent login session),
@@ -109,10 +113,24 @@ var Configurator = (function () {
     ));
   }
 
+  function _Log() {
+    var logDirectory = Config.fetch('log', 'log.folder');
+    var logFileName = Config.fetch('log', 'log.fileName');
+
+    fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory);
+    var accessLogStream = FileStreamRotator.getStream({
+      filename: logDirectory + logFileName,
+      frequency: Config.fetch('log', 'log.frecuency'),
+      verbose: Config.fetch('log', 'log.verbose')
+    });
+
+    _self.rest.use(logger('dev', {stream: accessLogStream}));
+
+  }
+
   function _Express() {
     _self.rest = express();
 
-    _self.rest.use(logger('dev'));
     _self.rest.use(bodyParser.urlencoded({
       extended: true
     }));
@@ -151,11 +169,12 @@ var Configurator = (function () {
     _Global();
   }
 
-  configurator.prototype.generate = function () {    
+  configurator.prototype.generate = function () {
     _Options();
     _SessionStorage();
     _Passport();
     _Express();
+    _Log();
     _Definitions();
 
     return {

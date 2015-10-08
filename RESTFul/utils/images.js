@@ -42,9 +42,11 @@ var Images = (function () {
         });
 
         if (log.code === 0) {
+          var url = Config.fetch('connection', 'service.files.url') + fileName;
+          console.log('Render url Done OK : ' + url);
           deferred.resolve({
             status: 200,
-            url: Config.fetch('connection', 'service.files.url') + fileName,
+            url: url,
             message: log.output
           });
         } else {
@@ -55,6 +57,7 @@ var Images = (function () {
       }
 
     } catch (error) {
+      console.error(error.message);
       deferred.reject({
         status: 500,
         message: error.message
@@ -70,16 +73,18 @@ var Images = (function () {
     try {
       var idRegex = params.url.match(params.regex);
       if (idRegex !== null) {
-        var id = idRegex.pop();
+        var url = 'http://img.youtube.com/vi/' + idRegex.pop() + '/3.jpg'
+        console.log('Render url Done OK : ' + url);
         deferred.resolve({
           status: 200,
-          url: 'http://img.youtube.com/vi/' + id + '/3.jpg',
+          url: url,
           message: 'DONE'
         });
-      } else {
-        throw new Error('youtube url fail regex');
+      } else {        
+        throw new Error('Regex procces for youtube failed');
       }
     } catch (error) {
+      console.error(error.message);
       deferred.reject({
         status: 500,
         message: error.message
@@ -104,10 +109,12 @@ var Images = (function () {
           if (!error && response.statusCode == 200) {
             try {
               var result = JSON.parse(body);
+              var url = (result.data.image.is_album === true) ?
+                  imgurBaseUrl + result.data.image.album_cover + 's.jpg' : imgurBaseUrl + result.data.image.hash + 's.jpg';
+              console.log('Render url Done OK : ' + url);
               deferred.resolve({
                 status: 200,
-                url: ((result.data.image.is_album === true) ?
-                  imgurBaseUrl + result.data.image.album_cover + 's.jpg' : imgurBaseUrl + result.data.image.hash + 's.jpg'),
+                url: url,
                 message: 'DONE'
               });
             } catch (error) {
@@ -121,12 +128,14 @@ var Images = (function () {
         });
 
       } else {
+        console.error('Regex procces for imagur failed');
         deferred.reject({
           status: 500,
-          message: 'Regex for imagur failed'
+          message: 'Regex process for imagur failed'
         });
       }
     } catch (error) {
+      console.error(error.message);
       deferred.reject({
         status: 500,
         message: error.message
@@ -137,6 +146,7 @@ var Images = (function () {
   }
 
   function _error(params) {
+    console.error(params.message);
     var deferred = Q.defer();
     deferred.reject({
       status: 500,
@@ -206,8 +216,10 @@ var Images = (function () {
 
   images.prototype.doThumbAsync = function (url) {
     try {
+      console.log('Processing : ' + url);
       return _detectProv(url);
     } catch(error) {
+      console.error(error.message);
       return _error({message: error.message});
     } 
   };

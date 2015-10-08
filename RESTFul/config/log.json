@@ -1,0 +1,20 @@
+{
+  "log.type": {
+    "value": "dev"
+  },
+  "log.folder": {
+  	"value": {
+      "nodeLibs": [],
+      "code": "return __dirname + '/log/'"
+    },
+    "log.fileName" : {
+    	"value": "access-%DATE%.log"
+    },
+    "log.frecuency" : {
+    	"value": "daily"
+    },
+    "log.verbose": {
+    	"value" : true
+    }
+  }
+}
