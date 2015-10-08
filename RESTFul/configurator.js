@@ -68,6 +68,8 @@ var Configurator = (function () {
       _self.options.nocluster = true;
     }
 
+    // Take value from argument key=val :. -c paco
+    //city = process.argv[process.argv.indexOf("-c") + 1];
   }
 
   function _showHelp() {

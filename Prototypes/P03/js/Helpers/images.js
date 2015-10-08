@@ -29,7 +29,7 @@ define(['jquery', 'Helpers/auth'], function ($, auth) {
       error.id = id;
       if (error.status === "401") {
         _auth.doAuth(_getShot, url);
-      } else {
+      } else {        
         deferred.reject(error);
       }
     });

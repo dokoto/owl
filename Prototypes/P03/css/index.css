@@ -1,7 +1,15 @@
+body {
+	background-image:url("../assets/img/logo.png");
+	background-repeat:no-repeat;
+	background-position:top center;
+	background-attachment:scroll
+} 
+
 .free-wall {
-        margin: 15px;
-      }
-      .brick img {
-        margin: 0;
-        display: block;
-      }
+	margin: 15px;
+}
+
+.brick img {
+	margin: 0;
+	display: block;
+}

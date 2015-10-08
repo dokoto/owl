@@ -7,6 +7,7 @@ cd owl ;
 cordova platform add android ;
 cordova plugin add https://github.com/dokoto/cordova-plugin-clipboard.git --save ;
 cordova plugin add https://github.com/dokoto/cordova-plugin-inappbrowser.git --save ;
+cordova plugin add cordova-plugin-dialogs --save ;
 echo "Eliminando logica por defecto" ;
 rm -rf www/*
 echo "Copiando logica propia" ;

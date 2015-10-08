@@ -4,10 +4,18 @@ requirejs.config({
   paths: {
     domReady: 'libs/vendor/domReady',
     jquery: 'libs/vendor/jquery-2.1.4.min',
-    freewall: 'libs/vendor/freewall'
+    freewall: 'libs/vendor/freewall',
+    hammerjs: 'libs/vendor/hammer.min',
+    'jquery-hammer': 'libs/vendor/jquery.hammer'
   },
   shim: {
-    "freewall": ["jquery"]
+    "freewall": ["jquery"],
+    'hammerjs': {
+      exports: 'Hammer'
+    },
+    'jquery-hammer': {
+      deps: ['jquery', 'hammerjs']
+    }
   }
 });
 
@@ -43,8 +51,8 @@ window.onerror = function (message, file, line, col, error) {
   console.error(file + ' linea ' + line + ' - col ' + col);
 };
 
-require(['Proxy', 'Helpers/Logger'], function (Proxy, Logger) {
-
+require(['jquery', 'Proxy', 'Helpers/Logger'], function ($, Proxy, Logger) {
+  
   window.Log = Logger.create(Logger.priority.DEBUG);
   $('#loading-status').empty();
   Log.info.v0('OWL START');

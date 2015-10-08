@@ -1,6 +1,6 @@
 {
 	"image" : {
-		"capture": "wkhtmltoimage --crop-w 1024 --crop-h 768 --load-error-handling ignore \"<%=url%>\" public/files/png/<%=fileName%>",
+		"capture": "xvfb-run -a -s \"-screen 0 1280x800x16\" wkhtmltoimage --crop-w 1024 --crop-h 768 --load-error-handling ignore \"<%=url%>\" public/files/png/<%=fileName%>",
 		"capturePhantomjs": "phantomjs <%=basePath%>/utils/rasterize.js \"<%=url%>\" public/files/png/<%=fileName%> \"1024px*768px\"",
 		"convert": "convert <%=basePath%>/public/files/png/<%=fileNameIn%> -resize <%=resizePorc%> public/files/png/<%=fileNameOut%>"
 	}
