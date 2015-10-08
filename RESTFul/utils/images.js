@@ -205,7 +205,11 @@ var Images = (function () {
   }
 
   images.prototype.doThumbAsync = function (url) {
-    return _detectProv(url);
+    try {
+      return _detectProv(url);
+    } catch(error) {
+      return _error({message: error.message});
+    } 
   };
 
 
