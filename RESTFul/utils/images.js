@@ -47,7 +47,7 @@ var Images = (function () {
           deferred.resolve({
             status: 200,
             url: url,
-            message: log.output.replace(/"/g, "'")
+            message: log.output.replace(/[\u0080-\uFFFF]+/g, "")
           });
         } else {
           throw new Error(log.output);
@@ -60,7 +60,7 @@ var Images = (function () {
       Logger.error(error.message);
       deferred.reject({
         status: 500,
-        message: error.message.replace(/"/g, "'")
+        message: error.message.replace(/[\u0080-\uFFFF]+/g, "")
       });
     } finally {
       return deferred.promise;
@@ -87,7 +87,7 @@ var Images = (function () {
       Logger.error(error.message);
       deferred.reject({
         status: 500,
-        message: error.message.replace(/"/g, "'")
+        message: error.message.replace(/[\u0080-\uFFFF]+/g, "")
       });
     } finally {
       return deferred.promise;
@@ -138,7 +138,7 @@ var Images = (function () {
       Logger.error(error.message);
       deferred.reject({
         status: 500,
-        message: error.message.replace(/"/g, "'")
+        message: error.message.replace(/[\u0080-\uFFFF]+/g, "")
       });
     } finally {
       return deferred.promise;
@@ -150,7 +150,7 @@ var Images = (function () {
     var deferred = Q.defer();
     deferred.reject({
       status: 500,
-      message: params.message.replace(/"/g, "'")
+      message: params.message.replace(/[\u0080-\uFFFF]+/g, "")
     });
     return deferred.promise;
   }
