@@ -12,7 +12,9 @@ var utils = {
 router.get('/images/shot/', ensureAuthenticated, function (request, response) {
     utils.images.doThumbAsync(request.query.url).then(function(res) {
     	utils.response.standardWithValue(response, res.status, res.message, res.url);
-    });
+    }).fail(function(res){
+    	utils.response.standardWithValue(response, res.status, res.message, res.url);
+    })
 });
 
 module.exports = router;
