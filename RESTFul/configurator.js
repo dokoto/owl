@@ -56,6 +56,23 @@ var Configurator = (function () {
      */
     _self.options.key = fs.readFileSync(path.join(Base, Config.fetch('https', 'https.pathToKey')));
     _self.options.cert = fs.readFileSync(path.join(Base, Config.fetch('https', 'https.pathToCert')));
+
+    // ARGUMENTS
+    if(process.argv.indexOf("--help") != -1) {
+      _showHelp();
+      process.exit();
+    }
+
+    _self.options.nocluster = false;
+    if(process.argv.indexOf("--nocluster") != -1) {
+      _self.options.nocluster = true;
+    }
+
+  }
+
+  function _showHelp() {
+    console.log('$> owld [options]');
+    console.log('--nocluster [default cluster is on]');
   }
 
   function _SessionStorage() {
@@ -160,7 +177,7 @@ var Configurator = (function () {
   }
 
   configurator.prototype.generate = function () {
-    _Options();
+    _Options();    
     _SessionStorage();
     _Passport();
     _Express();
