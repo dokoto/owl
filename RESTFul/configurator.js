@@ -111,6 +111,7 @@ var Configurator = (function () {
 
   function _log4js() {
     var log4js = require('log4js');
+    fs.existsSync('log') || fs.mkdirSync('log')
     log4js.configure('./config/log4js.json');
 
     global.Logger = log4js.getLogger("OWL");
