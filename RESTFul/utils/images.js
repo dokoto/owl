@@ -25,11 +25,13 @@ var Images = (function () {
         fileName: fileName
       });
 
+      Logger.info('[utils.images] cmd: ' + cmd);
       var log = shelljs.exec(cmd, {
         silent: true
       });
 
       if (log.code === 0) {
+        Logger.info('[utils.images] cmd: ' + cmd);
         cmd = tpl.fromString(commands.image.convert, {
           basePath: Base,
           fileNameIn: fileName,
