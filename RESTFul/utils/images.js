@@ -59,7 +59,7 @@ var Images = (function () {
     } catch (error) {
       Logger.error(error.message);
       deferred.reject({
-        status: 500,
+        status: 501,
         message: error.message.substr(0, 30)
       });
     } finally {
@@ -86,7 +86,7 @@ var Images = (function () {
     } catch (error) {
       Logger.error(error.message);
       deferred.reject({
-        status: 500,
+        status: 501,
         message: error.message.substr(0, 30)
       });
     } finally {
@@ -130,14 +130,14 @@ var Images = (function () {
       } else {
         Logger.error('Regex procces for imagur failed');
         deferred.reject({
-          status: 500,
+          status: 501,
           message: 'Regex process for imagur failed'
         });
       }
     } catch (error) {
       Logger.error(error.message);
       deferred.reject({
-        status: 500,
+        status: 501,
         message: error.message.substr(0, 30)
       });
     } finally {
@@ -149,7 +149,7 @@ var Images = (function () {
     Logger.error(params.message);
     var deferred = Q.defer();
     deferred.reject({
-      status: 500,
+      status: params.status,
       message: params.message.substr(0, 30)
     });
     return deferred.promise;
@@ -191,7 +191,7 @@ var Images = (function () {
 
     for (var i = 0; i < test.error.length; i++) {      
         if (test.error[i].func(url) === false) {
-          _error({message: test.error.message});
+          _error({message: test.error.message, status: 500});
         }
       
     }
@@ -220,7 +220,7 @@ var Images = (function () {
       return _detectProv(url);
     } catch(error) {
       Logger.error(error.message);
-      return _error({message: error.message});
+      return _error({message: error.message, status:500});
     } 
   };
 
