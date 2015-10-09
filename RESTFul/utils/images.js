@@ -19,7 +19,7 @@ var Images = (function () {
     try {
       var fileName = randomstring.generate() + '.png';
 
-      var cmd = tpl.fromString(commands.image.capture, {
+      var cmd = tpl.fromString(commands.image.pageres, {
         basePath: Base,
         url: params.url,
         fileName: fileName
