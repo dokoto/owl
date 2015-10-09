@@ -13,6 +13,7 @@ define(['jquery', 'Helpers/auth'], function ($, auth) {
     $.ajax({
       method: "GET",
       url: 'https://46.105.122.140:46969/images/shot/',
+      timeout: 30000, 
       data: {
         url: url
       }

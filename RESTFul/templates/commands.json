@@ -1,7 +1,7 @@
 {
 	"image" : {
 		"pageres": "(cd public/files/png/ && pageres 1024x768 --crop --filename=\"<%=fileName%> \" \"<%=url%>\")",
-		"wkhtmltoimage": "xvfb-run -a -s \"-screen 0 1280x800x16\" wkhtmltoimage --crop-w 1024 --crop-h 768 --load-error-handling ignore --load-media-error-handling ignore \"<%=url%>\" public/files/png/<%=fileName%>",
+		"wkhtmltoimage": "xvfb-run -a -s \"-screen 0 1280x800x16\" wkhtmltoimage --crop-w 1024 --crop-h 768 --load-error-handling ignore \"<%=url%>\" public/files/png/<%=fileName%>",
 		"phantomjs": "phantomjs <%=basePath%>/utils/rasterize.js \"<%=url%>\" public/files/png/<%=fileName%> \"1024px*768px\"",
 		"convert": "convert <%=basePath%>/public/files/png/<%=fileNameIn%> -resize <%=resizePorc%> public/files/png/<%=fileNameOut%>"
 	}
