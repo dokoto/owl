@@ -65,12 +65,14 @@ define(['jquery', 'Helpers/images', 'jquery-hammer', 'freewall'], function ($, i
     clipBoard.setCopyListener(function (data) {
       var _id = Math.round(new Date().getTime() + (Math.random() * 100));
       _insertImage(_id, data.item, 'assets/img/squares.gif');
-      $.when(_images.doShot(data.item, _id)).then(function ( ) {
+      $.when(_images.doShot(data.item, _id)).then(function (convertion) {
         _modifyImage(convertion.id, data.item, convertion.value);
       }).fail(function (error) {
         console.error(error);
         if (error.status === '500') {
           _removeImage(error.id, data.item);
+        } else if (error.status === '501') {
+          _modifyImage(error.id, data.item, 'assets/img/mystery-box.jpg');
         } else {
           _modifyImage(error.id, data.item, 'assets/img/mystery-box.jpg');
         }
