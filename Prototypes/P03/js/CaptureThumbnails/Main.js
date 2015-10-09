@@ -69,7 +69,8 @@ define(['jquery', 'Helpers/images', 'jquery-hammer', 'freewall'], function ($, i
         _modifyImage(convertion.id, data.item, convertion.value);
       }).fail(function (error) {
         console.error(error);
-        _removeImage(error.id, data.item);
+        //_removeImage(error.id, data.item);
+        _modifyImage(error.id, data.item, 'assets/img/mystery-box.jpg');
         navigator.notification.alert('Something went wrong, sorry :(', null, 'Error', 'Done');
       });
 
