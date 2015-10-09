@@ -49,7 +49,7 @@ var Images = (function () {
           deferred.resolve({
             status: 200,
             url: url,
-            message: log.output.substr(0, 30)
+            message: "DONE"
           });
         } else {
           throw new Error(log.output);
@@ -62,7 +62,7 @@ var Images = (function () {
       Logger.error(error.message);
       deferred.reject({
         status: 501,
-        message: error.message.substr(0, 30)
+        message: "ERROR"
       });
     } finally {
       return deferred.promise;
